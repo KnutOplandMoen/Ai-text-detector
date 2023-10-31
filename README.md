@@ -26,7 +26,22 @@ Loading the Model and Tokenizer: Loads the pre-trained model and tokenizer for t
 
 **Text Tokenization and Padding:** Tokenizes and pads the new text data to match the model's input shape.
 
-**Making Predictions:** Uses the loaded model to predict the origin of the new text, providing an average prediction score indicating the likelihood of AI generation.
+**Making Predictions:** Uses the loaded model to predict the origin of the new text, providing an average prediction score indicating the likelihood of AI generation. The avarage is taken of all the small chunks of text provided. How to split text is described further down. 
+
+## how to interpret results
+The following code can be added at the bottom of predict.py to get a better sense of what the model output means. 
+```python
+if predictionsum > 0.90:
+    print(f'Text most likely written by a human. Probability of human authorship: {round(model_output*100, 2)}% (very high probability)')
+elif predictionsum > 0.69:
+    print(f'Text most likely written by a human. Probability of human authorship: {round(model_output*100, 2)}% (high probability)')
+elif predictionsum > 0.51:
+    print(f'Text most likely written by AI or with the help of AI. Probability of human authorship: {round(model_output*100, 2)}% (low probability)')
+elif predictionsum > 0.40:
+    print(f'Text most likely written by AI. Probability of human authorship: {round(model_output*100, 2)}% (low probability)')
+elif predictionsum > 0.30:
+    print(f'Text most likely written by AI. Probability of human authorship: {round(model_output*100, 2)}% (very low probability)')
+```
 
 ### text_to_predict.txt
 **Description:**
@@ -36,4 +51,9 @@ This file contains sample text that you want to evaluate for its origin. You can
 **Description:**
 This file is the training data, with each line containing a small chunk of text followed by a label (0 for AI-generated and 1 for human-written). It is not yet tested lots of different data in the model, however, what has seemed to work up until now is using small chunks of text from a full page and labeling each one ( 10-20 words per chunk). 
 
+## Example
+In my use case. i wanted to train the model to be able to check if stories/novels written in norwegian were written by humans or by chatGPT. i promted chatGPT with the different variations of: "write a short story/novel with the name (different famous short stories/novels)". I then labeled the data as ai written data, then i used the human written novels with corresponding names to the ones i promted chatGPT, for the human data. After 60 epochs the validation accuracy was at 0.94: 
+![image](https://github.com/KnutOplandMoen/Ai-text-detector/assets/92923535/60b28274-4b96-4e22-8876-6531f25a8099)
+
+## Other
 Feel free to modify the code and experiment with different architectures and hyperparameters to enhance the model's performance. 
