@@ -29,4 +29,15 @@ predictionsum = 0
 for i in range(len(texts)):
   predictionsum += predictions[i][0]
 
-print(predictionsum/len(texts))
+predictionsum = predictionsum/len(texts)
+
+if predictionsum > 0.90:
+    print(f'Text most likely written by a human. Probability of human authorship: {round(model_output*100, 2)}% (very high probability)')
+elif predictionsum > 0.69:
+    print(f'Text most likely written by a human. Probability of human authorship: {round(model_output*100, 2)}% (high probability)')
+elif predictionsum > 0.51:
+    print(f'Text most likely written by AI or with the help of AI. Probability of human authorship: {round(model_output*100, 2)}% (low probability)')
+elif predictionsum > 0.40:
+    print(f'Text most likely written by AI. Probability of human authorship: {round(model_output*100, 2)}% (low probability)')
+elif predictionsum > 0.30:
+    print(f'Text most likely written by AI. Probability of human authorship: {round(model_output*100, 2)}% (very low probability)')
