@@ -52,7 +52,7 @@ This file contains sample text that you want to evaluate for its origin. You can
 This file is the training data, with each line containing a small chunk of text followed by a label (0 for AI-generated and 1 for human-written). It is not yet tested lots of different data in the model, however, what has seemed to work up until now is using small chunks of text from a full page and labeling each one ( 10-20 words per chunk). 
 
 ## Example
-In my use case. i wanted to train the model to be able to check if stories/novels written in norwegian were written by humans or by chatGPT. i promted chatGPT with the different variations of: "write a short story/novel with the name (different famous short stories/novels)". I then labeled the data as ai written data, then i used the human written novels with corresponding names to the ones i promted chatGPT, for the human data. After 60 epochs the validation accuracy was at 0.94: 
+In my use case. i wanted to train the model to be able to check if stories/novels written in norwegian were written by humans or by chatGPT. i promted chatGPT with the different variations of: "write a short story/novel with the name (different famous short stories/novels)". I then labeled the data as ai written data, then i used the human written novels with corresponding names to the ones i promted chatGPT, for the human data. the total number of labeled data was around 1000 chuncks of text. After 60 epochs the validation accuracy was at 0.94: 
 ![image](https://github.com/KnutOplandMoen/Ai-text-detector/assets/92923535/60b28274-4b96-4e22-8876-6531f25a8099)
 
 ## Other
